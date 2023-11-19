@@ -1,23 +1,46 @@
 @import "../assets/stylesheets/reset.scss";
 
 .wrapper {
-    height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(
+    to bottom,
+    var(--welcome-bg-start) 0%,
+    var(--welcome-bg-end) 100%
+  );
+  margin-bottom: var(--welcome-nav-height);
+
+  > header {
+    flex-shrink: 0; /* 不收缩：默认是1，表示收缩 */
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 36px;
 
-    >header {
-        flex-shrink: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    > img {
+      width: 64px;
+      height: 68.97px;
+      opacity: 1;
     }
 
-    >main {
-        flex-grow: 1;
+    > h1 {
+      color: #d4d4ee;
+      font-size: 32px;
+      font-weight: bold;
+      line-height: 32px;
+      letter-spacing: 0em;
     }
+  }
 
-    >footer {
-        flex-shrink: 0;
-    }
+  > main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* 拉伸：默认是0，表示不拉伸 */
+  }
+
+  > footer {
+    flex-shrink: 0;
+  }
 }
