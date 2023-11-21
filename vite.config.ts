@@ -14,5 +14,8 @@ export default defineConfig({
       transformOn: true,
       mergeProps: true,
     }),
-  ]
+  ],
+  server: {				// ← ← ← ← ← ←
+    host: '0.0.0.0'	// ← 新增内容 ←
+  }		
 })

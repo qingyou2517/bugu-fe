@@ -8,12 +8,12 @@ export const First = defineComponent({
     return () => (
       <div class={s.wrapper}>
         <div class={s.card}>
-          <img src={pig}  />
-          <h2>会挣钱<br/>也会省钱</h2>
+          <img src={pig} />
+          <h3>会挣钱<br />也要会省钱</h3>
         </div>
         <div class={s.actions}>
           <span class={s.hide}>跳过</span>
-          <RouterLink to="/welcome/2"  class={s.next}>下一页</RouterLink>
+          <RouterLink to="/welcome/2" class={s.next}>下一页</RouterLink>
           <RouterLink to="/start">跳过</RouterLink>
         </div>
       </div>
