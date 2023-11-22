@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 // 浏览器渲染vue3-jsx语法需要插件：@vitejs/plugin-vue-jsx
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import { svgstore } from './src/vite_plugins/svgstore.js';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,6 +15,7 @@ export default defineConfig({
       transformOn: true,
       mergeProps: true,
     }),
+    svgstore(),
   ],
   server: {				// ← ← ← ← ← ←
     host: '0.0.0.0'	// ← 新增内容 ←
