@@ -6,6 +6,7 @@ import { Center } from "../shared/Center"
 import { Icon } from '../shared/Icon';
 import { NavBar } from '../shared/NavBar';
 import { Overlay } from '../shared/Overlay';
+import { RouterLink } from 'vue-router';
 
 export const StartPage = defineComponent({
   setup: (props, { slots }) => {
@@ -42,11 +43,14 @@ export const StartPage = defineComponent({
         </Center>
         <div class={s.button_wrapper}>
           <ConfigProvider theme-vars={themeVars}  >
-            <Button round type="primary" class={s.button}>开始记账</Button>
+            <RouterLink to="/items/create">
+              <Button round type="primary" class={s.button}>开始记账</Button>
+            </RouterLink>
           </ConfigProvider>
         </div>
-        <FloatButton iconName="add" />
-
+        <RouterLink to="/items/create">
+          <FloatButton iconName="add" />
+        </RouterLink>
         {overlayVisible.value && <Overlay onClose={handleClose} />}
       </>
     )

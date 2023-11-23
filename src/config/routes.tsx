@@ -11,6 +11,9 @@ import { Welcome } from "../views/Welcome";
 import { StartPage } from "../views/StartPage";
 import { StatisticsPage } from "../views/StatisticsPage";
 import { ComingSoon } from "../shared/ComingSoon";
+import { ItemPage } from "../views/ItemPage";
+import { ItemCreate } from "../components/items/ItemCreate";
+import { ItemList } from "../components/items/ItemList";
 
 export const routes: RouteRecordRaw[] = [
   { path: "/", redirect: "/welcome" },
@@ -26,6 +29,13 @@ export const routes: RouteRecordRaw[] = [
     ],
   },
   { path: "/start", component: StartPage },
+  {
+    path: '/items', component: ItemPage,
+    children: [
+      { path: '', component: ItemList },
+      { path: 'create', component: ItemCreate },
+    ]
+  },
   { path: '/statistics', component: StatisticsPage },
   { path: '/export', component: ComingSoon },
   { path: '/classify', component: ComingSoon },
