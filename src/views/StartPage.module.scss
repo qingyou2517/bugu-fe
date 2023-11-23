@@ -1,0 +1,23 @@
+.button {
+  width: 100%;
+
+  &_wrapper {
+    padding: 16px 16px;
+  }
+}
+
+.pig {
+  width: 128px;
+  height: 128px;
+
+  &_wrapper {
+    padding: 120px 0;
+  }
+}
+
+.navIcon {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  top: 2px;
+}

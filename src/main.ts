@@ -5,6 +5,7 @@ import { createRouter } from 'vue-router'
 import { routes } from './config/routes'
 import { history } from './shared/history';
 
+import 'vant/lib/index.css';
 import "@svgstore";
 
 const router = createRouter({
