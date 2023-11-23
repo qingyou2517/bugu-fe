@@ -6,7 +6,17 @@ type Point = {
   y: number;
 }
 
-export const useSwipe = (element: Ref<HTMLElement | undefined>) => {
+// 外界指定事件处理函数：如取消浏览器默认滑动效果
+interface Options {
+  beforeStart?: (e: TouchEvent) => void
+  afterStart?: (e: TouchEvent) => void
+  beforeMove?: (e: TouchEvent) => void
+  afterMove?: (e: TouchEvent) => void
+  beforeEnd?: (e: TouchEvent) => void
+  afterEnd?: (e: TouchEvent) => void
+}
+
+export const useSwipe = (element: Ref<HTMLElement | undefined>, options?: Options) => {
   const start = ref<Point>()   // 按下手指
   const end = ref<Point>()     // 松开手指
   const swiping = ref(false)              // 是否移动
@@ -27,16 +37,21 @@ export const useSwipe = (element: Ref<HTMLElement | undefined>) => {
     }
   })
   const onStart = (e: TouchEvent) => {
-    e.preventDefault()
+    options?.beforeStart?.(e)
     swiping.value = true
     end.value = start.value = { x: e.touches[0].screenX, y: e.touches[0].screenY }
+    options?.afterStart?.(e)
   }
   const onMove = (e: TouchEvent) => {
+    options?.beforeMove?.(e)
     if (!start.value) { return }
     end.value = { x: e.touches[0].screenX, y: e.touches[0].screenY, }
+    options?.afterMove?.(e)
   }
   const onEnd = (e: TouchEvent) => {
+    options?.beforeEnd?.(e)
     swiping.value = false
+    options?.afterEnd?.(e)
   }
 
   onMounted(() => {
