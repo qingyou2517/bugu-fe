@@ -6,6 +6,7 @@ import { Center } from "../shared/Center"
 import { Icon } from '../shared/Icon';
 import { NavBar } from '../shared/NavBar';
 import { Overlay } from '../shared/Overlay';
+import { MainLayout } from '../layouts/MainLayout';
 import { RouterLink } from 'vue-router';
 
 export const StartPage = defineComponent({
@@ -30,29 +31,29 @@ export const StartPage = defineComponent({
       overlayVisible.value = false
     }
     return () => (
-      <>
-        <NavBar>{
-          {
-            icon: () => <Icon name="menu" class={s.navIcon} onClick={handleClickMenu}></Icon>,
-            default: () => "青游记账"
-          }
-        }
-        </NavBar>
-        <Center class={s.pig_wrapper}>
-          <Icon name="pig" class={s.pig}></Icon>
-        </Center>
-        <div class={s.button_wrapper}>
-          <ConfigProvider theme-vars={themeVars}  >
+      <MainLayout>{
+        {
+          icon: () => <Icon name="menu" class={s.navIcon} onClick={handleClickMenu}></Icon>,
+          title: () => "青游记账",
+          default: () => <>
+            <Center class={s.pig_wrapper}>
+              <Icon name="pig" class={s.pig}></Icon>
+            </Center>
+            <div class={s.button_wrapper}>
+              <ConfigProvider theme-vars={themeVars}  >
+                <RouterLink to="/items/create">
+                  <Button round type="primary" class={s.button}>开始记账</Button>
+                </RouterLink>
+              </ConfigProvider>
+            </div>
             <RouterLink to="/items/create">
-              <Button round type="primary" class={s.button}>开始记账</Button>
+              <FloatButton iconName="add" />
             </RouterLink>
-          </ConfigProvider>
-        </div>
-        <RouterLink to="/items/create">
-          <FloatButton iconName="add" />
-        </RouterLink>
-        {overlayVisible.value && <Overlay onClose={handleClose} />}
-      </>
+            {overlayVisible.value && <Overlay onClose={handleClose} />}
+          </>
+        }
+      }
+      </MainLayout>
     )
   }
 })
