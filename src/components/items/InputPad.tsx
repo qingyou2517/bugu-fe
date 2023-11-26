@@ -4,7 +4,6 @@ import { DatePicker, Popup } from "vant";
 import dayjs from "dayjs";
 import { Icon } from "../../shared/Icon";
 
-type DP = [string,string,string]
 export const InputPad = defineComponent({
   // props: {
   //   name: {
