@@ -2,9 +2,9 @@ import { defineComponent, PropType, reactive, ref } from 'vue';
 import s from './StartPage.module.scss';
 import { Button, ConfigProvider, ConfigProviderThemeVars } from 'vant';
 import { FloatButton } from '../shared/FloatButton';
+import { MyButton } from '../shared/MyButton';
 import { Center } from "../shared/Center"
 import { Icon } from '../shared/Icon';
-import { NavBar } from '../shared/NavBar';
 import { Overlay } from '../shared/Overlay';
 import { MainLayout } from '../layouts/MainLayout';
 import { RouterLink } from 'vue-router';
@@ -39,13 +39,9 @@ export const StartPage = defineComponent({
             <Center class={s.pig_wrapper}>
               <Icon name="pig" class={s.pig}></Icon>
             </Center>
-            <div class={s.button_wrapper}>
-              <ConfigProvider theme-vars={themeVars}  >
-                <RouterLink to="/items/create">
-                  <Button round type="primary" class={s.button}>开始记账</Button>
-                </RouterLink>
-              </ConfigProvider>
-            </div>
+            <RouterLink to="/items/create">
+              <MyButton>开始记账</MyButton>
+            </RouterLink>
             <RouterLink to="/items/create">
               <FloatButton iconName="add" />
             </RouterLink>
@@ -53,7 +49,7 @@ export const StartPage = defineComponent({
           </>
         }
       }
-      </MainLayout>
+      </MainLayout >
     )
   }
 })
