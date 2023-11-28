@@ -5,7 +5,7 @@ import { Button, ConfigProvider, ConfigProviderThemeVars } from 'vant';
 export const MyButton = defineComponent({
   props: {
     kind: {
-      type: String as PropType<string>,
+      type: String as PropType<"" | "danger">,
       default: ""
     },
     disabled: {
