@@ -1,0 +1,19 @@
+.navIcon {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  top: 2px;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 88px - 96px);
+  .tabs {
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
