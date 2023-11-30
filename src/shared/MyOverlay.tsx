@@ -1,9 +1,9 @@
 import { defineComponent, PropType } from 'vue';
-import s from './Overlay.module.scss';
+import s from './MyOverlay.module.scss';
 import { RouterLink } from 'vue-router';
-import { Icon } from '../shared/Icon';
+import { Icon } from './Icon';
 
-export const Overlay = defineComponent({
+export const MyOverlay = defineComponent({
   props: {
     onClose: {
       type: Function as PropType<(e: TouchEvent) => void>

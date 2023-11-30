@@ -5,7 +5,7 @@ import { FloatButton } from '../shared/FloatButton';
 import { MyButton } from '../shared/MyButton';
 import { Center } from "../shared/Center"
 import { Icon } from '../shared/Icon';
-import { Overlay } from '../shared/Overlay';
+import { MyOverlay } from '../shared/MyOverlay';
 import { MainLayout } from '../layouts/MainLayout';
 import { RouterLink } from 'vue-router';
 
@@ -45,7 +45,7 @@ export const StartPage = defineComponent({
             <RouterLink to="/items/create">
               <FloatButton iconName="add" />
             </RouterLink>
-            {overlayVisible.value && <Overlay onClose={handleClose} />}
+            {overlayVisible.value && <MyOverlay onClose={handleClose} />}
           </>
         }
       }

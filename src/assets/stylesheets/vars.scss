@@ -19,6 +19,7 @@
   --button-height: 48px;
   --button-border-color: #ddd;
   --button-bg-key: white;
+  --button-bg-form: #7d59d0;
 
   --float-button-text: white;
   --float-button-bg: var(--button-bg);
@@ -29,7 +30,7 @@
 
   --overlay-mask-bg: rgba(0, 0, 0, 0.5);
   --overlay-bg: white;
-  --overlay-user-bg: #5c33be;
+  --overlay-user-bg: #8b66e1;
   --overlay-user-text: white;
 
   --top-safe-area-height: 24px;
@@ -58,4 +59,8 @@
   --total-text: white;
   --total-income: #fe7275;
   --total-expenses: #53a867;
+
+  --dialog-header-text: white;
+
+  --bg: white;
 }
