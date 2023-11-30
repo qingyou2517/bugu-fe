@@ -17,6 +17,7 @@ import { ItemList } from "../components/items/ItemList";
 import { TagPage } from "../views/TagPage";
 import { TagCreate } from "../components/tag/TagCreate";
 import { TagEdit } from "../components/tag/TagEdit";
+import { SignInPage } from "../views/SignInPage";
 
 export const routes: RouteRecordRaw[] = [
   { path: "/", redirect: "/welcome" },
@@ -25,29 +26,48 @@ export const routes: RouteRecordRaw[] = [
     component: Welcome,
     children: [
       { path: "", redirect: "/welcome/1" },
-      { path: "1", name: "Welcome1", components: { main: First, footer: FirstAction } },
-      { path: "2", name: "Welcome2", components: { main: Second, footer: SecondAction } },
-      { path: "3", name: "Welcome3", components: { main: Third, footer: ThirdAction } },
-      { path: "4", name: "Welcome4", components: { main: Forth, footer: ForthAction } },
+      {
+        path: "1",
+        name: "Welcome1",
+        components: { main: First, footer: FirstAction },
+      },
+      {
+        path: "2",
+        name: "Welcome2",
+        components: { main: Second, footer: SecondAction },
+      },
+      {
+        path: "3",
+        name: "Welcome3",
+        components: { main: Third, footer: ThirdAction },
+      },
+      {
+        path: "4",
+        name: "Welcome4",
+        components: { main: Forth, footer: ForthAction },
+      },
     ],
   },
   { path: "/start", component: StartPage },
   {
-    path: '/items', component: ItemPage,
+    path: "/items",
+    component: ItemPage,
     children: [
-      { path: '', component: ItemList },
-      { path: 'create', component: ItemCreate },
-    ]
+      { path: "", component: ItemList },
+      { path: "create", component: ItemCreate },
+    ],
   },
   {
-    path: '/tags', component: TagPage,
+    path: "/tags",
+    component: TagPage,
     children: [
-      { path: 'create', component: TagCreate },
-      { path: ':id/edit', component: TagEdit },
-    ]
+      { path: "create", component: TagCreate },
+      { path: ":id/edit", component: TagEdit },
+    ],
   },
-  { path: '/statistics', component: StatisticsPage },
-  { path: '/export', component: ComingSoon },
-  { path: '/classify', component: ComingSoon },
-  { path: '/notify', component: ComingSoon },
+  { path: "/sign_in", component: SignInPage },
+  { path: "/statistics", component: StatisticsPage },
+  { path: "/export", component: ComingSoon },
+  { path: "/classify", component: ComingSoon },
+  { path: "/notify", component: ComingSoon },
 ];

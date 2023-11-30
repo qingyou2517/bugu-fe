@@ -1,8 +1,8 @@
-.button {
+.myButton {
   width: 100%;
-
-  &_wrapper {
-    padding: 0 16px;
-    margin-top: 8px;
+}
+:global {
+  .myButton_wrapper {
+    margin: 8px 16px 0;
   }
 }
