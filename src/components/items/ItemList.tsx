@@ -55,10 +55,10 @@ export const ItemList = defineComponent({
                   offset-top={88}
                   onClickTab={(e: Tab) => handleClickTab(e)}
                 >
-                  <Tab title="上月">
+                  <Tab title="本月">
                     <ItemSummary></ItemSummary>
                   </Tab>
-                  <Tab title="本月">
+                  <Tab title="上个月">
                     <ItemSummary></ItemSummary>
                   </Tab>
                   <Tab title="今年">

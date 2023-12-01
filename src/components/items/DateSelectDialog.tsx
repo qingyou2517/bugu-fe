@@ -22,9 +22,10 @@ export const DateSelectDialog = defineComponent({
     // 时间选择对话框：使用Overlay、Form来封装
     const show = ref(false);
     const formRef = ref(null);
+    // 日期格式: 2020-1-1
     const formData = reactive({
-      startDate: "2020-1-1",
-      endDate: "2023-1-1",
+      startDate: "",
+      endDate: "",
     });
     const openOverlay = () => {
       show.value = true;
@@ -82,6 +83,7 @@ export const DateSelectDialog = defineComponent({
                     label=""
                     class="input_wrapper"
                     readonly={true}
+                    placeholder="点击选择日期"
                     v-model={formData.startDate}
                     onClick={() => showPopup("start")}
                   ></Field>
@@ -92,6 +94,7 @@ export const DateSelectDialog = defineComponent({
                     label=""
                     class="input_wrapper"
                     readonly={true}
+                    placeholder="点击选择日期"
                     v-model={formData.endDate}
                     onClick={() => showPopup("end")}
                   ></Field>
