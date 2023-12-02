@@ -4,3 +4,20 @@
   position: relative;
   top: 2px;
 }
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 88px);
+  .tabs {
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .select_wrapper {
+      padding: 8px;
+    }
+  }
+}

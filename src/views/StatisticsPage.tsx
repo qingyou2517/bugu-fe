@@ -49,19 +49,27 @@ export const StatisticsPage = defineComponent({
                   onClickTab={(e: Tab) => handleClickTab(e)}
                 >
                   <Tab title="本月">
-                    <MySelect options={options} v-model={category.value} />
+                    <div class={s.select_wrapper}>
+                      <MySelect options={options} v-model={category.value} />
+                    </div>
                     <Charts />
                   </Tab>
                   <Tab title="上个月">
-                    <MySelect />
+                    <div class={s.select_wrapper}>
+                      <MySelect options={options} v-model={category.value} />
+                    </div>
                     <Charts />
                   </Tab>
                   <Tab title="今年">
-                    <MySelect />
+                    <div class={s.select_wrapper}>
+                      <MySelect options={options} v-model={category.value} />
+                    </div>
                     <Charts />
                   </Tab>
                   <Tab title="自定义时间">
-                    <MySelect />
+                    <div class={s.select_wrapper}>
+                      <MySelect options={options} v-model={category.value} />
+                    </div>
                     <Charts />
                   </Tab>
                 </Tabs>
