@@ -4,7 +4,7 @@ import { MainLayout } from "../layouts/MainLayout";
 import { Icon } from "../shared/Icon";
 import { Field, Form } from "vant";
 import { MyButton } from "../shared/MyButton";
-import axios from "axios";
+import { http } from "../shared/Http";
 
 export const SignInPage = defineComponent({
   setup: (props, context) => {
@@ -20,7 +20,7 @@ export const SignInPage = defineComponent({
     const loginDisabled = computed(() => {
       return formData.email === "" || formData.code === "";
     });
-    const cd = ref(2); // 发送验证码的冷却倒计时
+    const cd = ref(3); // 发送验证码的冷却倒计时
     const hasClickSend = ref(false); // 已点击发送验证码
     const codeDisabled = computed(() => {
       if (cd.value >= 0 && hasClickSend.value) {
@@ -28,21 +28,21 @@ export const SignInPage = defineComponent({
       }
     });
     const sendCode = async () => {
-      try {
-        let res = await axios.post(" /api/v1/validation_codes", {
+      const res = await http
+        .post("/validation_codes", {
           email: formData.email,
+        })
+        .catch((err) => {
+          console.log(err);
+          // throw err; // 阻塞下面的代码执行
         });
-      } catch (err) {
-        console.log(err);
-      }
-
       hasClickSend.value = true;
       let id = setInterval(() => {
         cd.value--;
         if (cd.value <= 0) {
           clearInterval(id);
           hasClickSend.value = false;
-          cd.value = 2;
+          cd.value = 3;
         }
       }, 1000);
     };
