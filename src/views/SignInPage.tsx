@@ -28,23 +28,25 @@ export const SignInPage = defineComponent({
       }
     });
     const sendCode = async () => {
+      hasClickSend.value = true; // 放在 axios 请求前
       const res = await http
         .post("/validation_codes", {
           email: formData.email,
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           // throw err; // 阻塞下面的代码执行
+        })
+        .finally(() => {
+          let id = setInterval(() => {
+            cd.value--;
+            if (cd.value <= 0) {
+              clearInterval(id);
+              hasClickSend.value = false;
+              cd.value = 3;
+            }
+          }, 1000);
         });
-      hasClickSend.value = true;
-      let id = setInterval(() => {
-        cd.value--;
-        if (cd.value <= 0) {
-          clearInterval(id);
-          hasClickSend.value = false;
-          cd.value = 3;
-        }
-      }, 1000);
     };
     const handleLogin = () => {
       console.log("login");
