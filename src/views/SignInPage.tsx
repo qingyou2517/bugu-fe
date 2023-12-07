@@ -3,22 +3,26 @@ import s from "./SignInPage.module.scss";
 import { MainLayout } from "../layouts/MainLayout";
 import { Icon } from "../shared/Icon";
 import { Field, Form } from "vant";
+import type { FormInstance } from "vant";
 import { MyButton } from "../shared/MyButton";
 import { http } from "../shared/Http";
+import { useRouter, useRoute } from "vue-router";
 
 export const SignInPage = defineComponent({
   setup: (props, context) => {
-    const formRef = ref(null);
+    const router = useRouter();
+    const route = useRoute();
+    const formRef = ref<FormInstance>();
     const formData = reactive({
-      email: "",
-      code: "",
+      email: "2517789608@qq.com",
+      code: "807484",
     });
     const emailRules = [
       { required: true, message: "请填写邮箱地址" },
-      { pattern: /.+@.+/, message: "必须是邮件地址" },
+      { pattern: /.+@.+/, message: "邮箱地址格式不正确" },
     ];
     const loginDisabled = computed(() => {
-      return formData.email === "" || formData.code === "";
+      return formData.email === "" || formData.code.length !== 6;
     });
     const cd = ref(3); // 发送验证码的冷却倒计时
     const hasClickSend = ref(false); // 已点击发送验证码
@@ -28,6 +32,9 @@ export const SignInPage = defineComponent({
       }
     });
     const sendCode = async () => {
+      await formRef.value?.validate("email").catch((err) => {
+        throw err;
+      });
       hasClickSend.value = true; // 放在 axios 请求前
       const res = await http
         .post("/validation_codes", {
@@ -48,8 +55,19 @@ export const SignInPage = defineComponent({
           }, 1000);
         });
     };
-    const handleLogin = () => {
-      console.log("login");
+    const codeError = ref(false); // 验证码报错
+    const handleLogin = async () => {
+      const res = await http
+        .post<{ jwt: string }>("/session", formData)
+        .catch((err) => {
+          codeError.value = true;
+          throw err;
+        });
+      if (res.data.jwt) {
+        localStorage.setItem("jwt", res.data.jwt);
+        const return_to = route.query.return_to?.toString(); // 返回登录前的页面
+        router.push(return_to || "/");
+      }
     };
     return () => (
       <MainLayout>
@@ -69,6 +87,7 @@ export const SignInPage = defineComponent({
                     label=""
                     label-width="48"
                     label-align="left"
+                    name="email"
                     clearable
                     class="input_wrapper"
                     placeholder="请输入邮箱地址，然后点击发送验证码"
@@ -100,6 +119,9 @@ export const SignInPage = defineComponent({
                       </MyButton>
                     </span>
                   </div>
+                  <span class={s.codeError}>
+                    {codeError.value ? "验证码错误" : ""}
+                  </span>
                 </label>
                 <MyButton
                   class={s.loginButton}

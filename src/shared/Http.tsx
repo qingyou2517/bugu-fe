@@ -64,8 +64,10 @@ export const http = new Http("/api/v1");
 // 请求拦截
 http.instance.interceptors.request.use(
   (config) => {
-    // 从 cookie 里获取 token，并往请求头 header 里自动添加 token
-    // config.headers["token"] = token;
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      config.headers!.Authorization = `Bearer ${jwt}`;
+    }
     return config;
   },
   (error) => {
