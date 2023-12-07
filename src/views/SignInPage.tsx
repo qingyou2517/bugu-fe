@@ -58,7 +58,9 @@ export const SignInPage = defineComponent({
     const codeError = ref(false); // 验证码报错
     const handleLogin = async () => {
       const res = await http
-        .post<{ jwt: string }>("/session", formData)
+        .post<{ jwt: string }>("/session", formData, {
+          params: { _mock: "session" },
+        })
         .catch((err) => {
           codeError.value = true;
           throw err;

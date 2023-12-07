@@ -1,12 +1,10 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
-
-type JSONValue =
-  | string
-  | number
-  | null
-  | boolean
-  | JSONValue[]
-  | { [key: string]: JSONValue };
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from "axios";
+import { mockSession } from "../mock/mock";
 
 export class Http {
   instance: AxiosInstance;
@@ -61,6 +59,33 @@ export class Http {
 
 export const http = new Http("/api/v1");
 
+const mock = (response: AxiosResponse) => {
+  if (
+    location.hostname !== "localhost" &&
+    location.hostname !== "127.0.0.1" &&
+    location.hostname !== "192.168.3.57"
+  ) {
+    return false;
+  }
+  switch (response.config?.params?._mock) {
+    // case "tagIndex":
+    //   [response.status, response.data] = mockTagIndex(response.config);
+    //   return true;
+    // case "itemCreate":
+    //   [response.status, response.data] = mockItemCreate(response.config);
+    //   return true;
+    // case "itemIndex":
+    //   [response.status, response.data] = mockItemIndex(response.config);
+    //   return true;
+    // case "tagCreate":
+    //   [response.status, response.data] = mockTagCreate(response.config);
+    case "session":
+      [response.status, response.data] = mockSession(response.config);
+      return true;
+  }
+  return false;
+};
+
 // 请求拦截
 http.instance.interceptors.request.use(
   (config) => {
@@ -76,7 +101,21 @@ http.instance.interceptors.request.use(
   }
 );
 
-// 响应拦截
+// 增加一个响应拦截器：用作 mock
+http.instance.interceptors.response.use(
+  (response) => {
+    mock(response);
+    return response;
+  },
+  (error) => {
+    if (mock(error.response)) {
+      return error.response;
+    } else {
+      throw error;
+    }
+  }
+);
+// 响应拦截器：用作公共报错处理
 http.instance.interceptors.response.use(
   (response) => {
     // 处理响应的数据
