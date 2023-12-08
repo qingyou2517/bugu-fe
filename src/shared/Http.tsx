@@ -16,7 +16,7 @@ export class Http {
   // read
   get<R = unknown>(
     url: string,
-    query?: Record<string, string>,
+    query?: Record<string, string | number>,
     config?: Omit<AxiosRequestConfig, "params" | "url" | "method">
   ) {
     return this.instance.request<R>({
@@ -63,7 +63,7 @@ const mock = (response: AxiosResponse) => {
   if (
     location.hostname !== "localhost" &&
     location.hostname !== "127.0.0.1" &&
-    location.hostname !== "192.168.3.57"
+    location.hostname !== "192.168.0.101"
   ) {
     return false;
   }

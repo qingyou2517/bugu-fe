@@ -14,3 +14,20 @@ type JSONValue =
   | boolean
   | JSONValue[]
   | { [key: string]: JSONValue };
+
+type Tag = {
+  id: number
+  user_id?: number
+  name: string
+  sign: string
+  kind: "expense" | "income"
+}
+
+type Resources<T = any> = {
+  resources: T[]
+  pager: {
+    page: number,
+    per_page: number,
+    count: number
+  }
+}

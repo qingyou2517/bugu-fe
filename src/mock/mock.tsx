@@ -15,6 +15,7 @@ export const mockSession: Mock = (config) => {
 };
 
 export const mockTagIndex: Mock = (config) => {
+  const { kind, page } = config.params;
   let id = 0;
   const createId = () => {
     return ++id;
@@ -26,25 +27,58 @@ export const mockTagIndex: Mock = (config) => {
         id: createId(),
         name: faker.lorem.word(),
         sign: faker.internet.emoji(),
-        kind: config.params.kind,
+        kind: kind,
         ...attrs,
       };
     });
   };
-  if (config.params.kind === "expense") {
+  if (kind === "expense" && (!page || page === 1)) {
     return [
       200,
       {
-        resources: createTag(7),
+        resources: createTag(24),
+        pager: {
+          page,
+          per_page: 25,
+          count: 36,
+        },
       },
     ];
-  } else if (config.params.kind === "income") {
+  } else if (kind === "expense" && page === 2) {
     return [
       200,
       {
-        resources: createTag(30),
+        resources: createTag(12),
+        pager: {
+          page,
+          per_page: 25,
+          count: 36,
+        },
+      },
+    ];
+  } else if (kind === "income" && (!page || page === 1)) {
+    return [
+      200,
+      {
+        resources: createTag(24),
+        pager: {
+          page,
+          per_page: 25,
+          count: 30,
+        },
+      },
+    ];
+  } else {
+    return [
+      200,
+      {
+        resources: createTag(6),
+        pager: {
+          page,
+          per_page: 25,
+          count: 30,
+        },
       },
     ];
   }
-  return [200, { resources: [] }];
 };
