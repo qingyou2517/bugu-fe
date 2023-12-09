@@ -36,7 +36,7 @@ export const mockTagIndex: Mock = (config) => {
     return [
       200,
       {
-        resources: createTag(24),
+        resources: createTag(25),
         pager: {
           page,
           per_page: 25,
@@ -48,7 +48,7 @@ export const mockTagIndex: Mock = (config) => {
     return [
       200,
       {
-        resources: createTag(12),
+        resources: createTag(11),
         pager: {
           page,
           per_page: 25,
@@ -60,11 +60,35 @@ export const mockTagIndex: Mock = (config) => {
     return [
       200,
       {
-        resources: createTag(24),
+        resources: createTag(25),
         pager: {
           page,
           per_page: 25,
-          count: 30,
+          count: 55,
+        },
+      },
+    ];
+  } else if (kind === "income" && (!page || page === 2)) {
+    return [
+      200,
+      {
+        resources: createTag(25),
+        pager: {
+          page,
+          per_page: 25,
+          count: 55,
+        },
+      },
+    ];
+  } else if (kind === "income" && (!page || page === 3)) {
+    return [
+      200,
+      {
+        resources: createTag(5),
+        pager: {
+          page,
+          per_page: 25,
+          count: 55,
         },
       },
     ];
@@ -72,11 +96,11 @@ export const mockTagIndex: Mock = (config) => {
     return [
       200,
       {
-        resources: createTag(6),
+        resources: [],
         pager: {
           page,
-          per_page: 25,
-          count: 30,
+          per_page: 0,
+          count: 0,
         },
       },
     ];
