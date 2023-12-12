@@ -4,6 +4,7 @@ import { List } from "vant";
 import { useTags } from "../../shared/useTags";
 import { http } from "../../shared/Http";
 import { Icon } from "../../shared/Icon";
+import { useRouter } from "vue-router";
 
 export const Tags = defineComponent({
   props: {
@@ -11,17 +12,14 @@ export const Tags = defineComponent({
       type: String as PropType<string>,
       required: true,
     },
+    selectTagId: {
+      type: Number as PropType<number>,
+    },
   },
+  emits: ["update:selectTagId"],
   setup: (props, context) => {
-    const {
-      tagsList,
-      loading,
-      finished,
-      handleLoadList,
-      selectTagId,
-      selectTag,
-      handleClickAdd,
-    } = useTags((page) => {
+    const router = useRouter();
+    const { tagsList, loading, finished, handleLoadList } = useTags((page) => {
       const res = http.get<Resources<Tag>>("/tags", {
         kind: props.kind,
         page: page + 1,
@@ -29,13 +27,23 @@ export const Tags = defineComponent({
       });
       return res;
     });
+
     // 让tabs切换时，清空tag的选择标记、重置List组件的加载状态
     const reset = () => {
-      selectTagId.value = -1;
       loading.value = false;
       finished.value = false;
+      context.emit("update:selectTagId", -1);
     };
     context.expose({ reset });
+
+    // 选择标签
+    const selectTag = (tag: Tag) => {
+      context.emit("update:selectTagId", tag.id);
+    };
+    const handleClickAdd = () => {
+      context.emit("update:selectTagId", -1);
+      router.push("/tags/create");
+    };
 
     return () => (
       <List
@@ -54,7 +62,7 @@ export const Tags = defineComponent({
         </div>
         {tagsList.value.map((tag) => (
           <div
-            class={[s.tag, selectTagId.value === tag.id ? s.selected : ""]}
+            class={[s.tag, props.selectTagId === tag.id ? s.selected : ""]}
             onClick={() => selectTag(tag)}
           >
             <div class={s.sign}>{tag.sign}</div>

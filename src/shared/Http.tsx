@@ -4,7 +4,8 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
 } from "axios";
-import { mockSession, mockTagIndex } from "../mock/mock";
+import { mockItemCreate, mockSession, mockTagIndex } from "../mock/mock";
+import { showDialog } from "vant";
 
 export class Http {
   instance: AxiosInstance;
@@ -71,9 +72,9 @@ const mock = (response: AxiosResponse) => {
     case "tagIndex":
       [response.status, response.data] = mockTagIndex(response.config);
       return true;
-    // case "itemCreate":
-    //   [response.status, response.data] = mockItemCreate(response.config);
-    //   return true;
+    case "itemCreate":
+      [response.status, response.data] = mockItemCreate(response.config);
+      return true;
     // case "itemIndex":
     //   [response.status, response.data] = mockItemIndex(response.config);
     //   return true;
@@ -105,13 +106,18 @@ http.instance.interceptors.request.use(
 http.instance.interceptors.response.use(
   (response) => {
     mock(response);
-    return response;
+    if (response.status >= 400) {
+      throw { response };
+    } else {
+      return response;
+    }
   },
   (error) => {
-    if (mock(error.response)) {
-      return error.response;
-    } else {
+    mock(error.response);
+    if (error.response.status >= 400) {
       throw error;
+    } else {
+      return error.response;
     }
   }
 );
@@ -126,7 +132,9 @@ http.instance.interceptors.response.use(
     if (error.response) {
       const axiosError = error as AxiosError;
       if (axiosError.response?.status === 429) {
-        alert("你太频繁了");
+        showDialog({
+          message: "亲，重复点击了哟!",
+        });
       }
     }
     throw error;

@@ -1,12 +1,9 @@
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 import { AxiosResponse } from "axios";
 
 type Fetcher = (page: number) => Promise<AxiosResponse<Resources<Tag>>>;
 
 export const useTags = (getData: Fetcher) => {
-  const router = useRouter();
-
   // List
   const loading = ref(false);
   const finished = ref(false);
@@ -46,15 +43,6 @@ export const useTags = (getData: Fetcher) => {
     });
   };
 
-  // 选择标签
-  const selectTagId = ref(-1);
-  const selectTag = (tag: Tag) => {
-    selectTagId.value = tag.id;
-  };
-  const handleClickAdd = () => {
-    selectTagId.value = -1;
-    router.push("/tags/create");
-  };
   return {
     page,
     tagsList,
@@ -62,8 +50,5 @@ export const useTags = (getData: Fetcher) => {
     hasMorePage,
     finished,
     handleLoadList,
-    selectTagId,
-    selectTag,
-    handleClickAdd,
   };
 };

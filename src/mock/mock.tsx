@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { AxiosRequestConfig } from "axios";
+import exp from "constants";
 
 type Mock = (config: AxiosRequestConfig) => [number, any];
 
@@ -32,7 +33,7 @@ export const mockTagIndex: Mock = (config) => {
       };
     });
   };
-  if (kind === "expense" && (!page || page === 1)) {
+  if (kind === "expenses" && (!page || page === 1)) {
     return [
       200,
       {
@@ -44,7 +45,7 @@ export const mockTagIndex: Mock = (config) => {
         },
       },
     ];
-  } else if (kind === "expense" && page === 2) {
+  } else if (kind === "expenses" && page === 2) {
     return [
       200,
       {
@@ -105,4 +106,32 @@ export const mockTagIndex: Mock = (config) => {
       },
     ];
   }
+};
+
+export const mockItemCreate: Mock = (config) => {
+  // return [
+  //   422,
+  //   {
+  //     errors: {
+  //       tags_id: ["必须选择一个标签"],
+  //       amount: ["必须输入金额"],
+  //     },
+  //   },
+  // ];
+  return [
+    200,
+    {
+      resource: {
+        id: 2264,
+        user_id: 1312,
+        amount: 9900,
+        note: null,
+        tags_id: [3508],
+        happen_at: "2020-10-29T16:00:00.000Z",
+        created_at: "2022-07-03T15:35:56.301Z",
+        updated_at: "2022-07-03T15:35:56.301Z",
+        kind: "expenses",
+      },
+    },
+  ];
 };

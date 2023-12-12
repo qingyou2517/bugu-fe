@@ -5,22 +5,34 @@ import dayjs from "dayjs";
 import { Icon } from "../../shared/Icon";
 
 export const InputPad = defineComponent({
+  props: {
+    amount: {
+      type: Number as PropType<number>,
+    },
+    happenAt: {
+      type: String as PropType<string>,
+    },
+    onSubmit: {
+      type: Function as PropType<() => void>,
+    },
+  },
   setup: (props, context) => {
     // 选择日期
     const refShowPop = ref(false);
-    const dateString = dayjs(new Date()).format().split("T")[0]; // 2023-11-24
+    const dateString = dayjs(props.happenAt).format().split("T")[0]; // 2023-11-24
     const refDate = ref(dateString.split("-"));
     let temp = refDate.value;
     const handleConfirm = (date: any) => {
       temp = date.selectedValues;
       refShowPop.value = false;
+      context.emit("update:happenAt", dayjs(temp.join("-")).toISOString());
     };
     const handleCancel = () => {
       refDate.value = temp;
       refShowPop.value = false;
     };
     // 数字键盘
-    const refAmount = ref("0");
+    const refAmount = ref(props.amount ? props.amount.toString() : "0");
     const appendText = (n: number | string) => {
       const nString = n.toString(); // 0、小数点、1~9
       const dotIndex = refAmount.value.indexOf(".");
@@ -51,6 +63,11 @@ export const InputPad = defineComponent({
       } else {
         refAmount.value = refAmount.value.substring(0, length - 1);
       }
+    };
+    const handleOK = () => {
+      context.emit("update:amount", parseFloat(refAmount.value));
+      refAmount.value = "0";
+      props.onSubmit?.();
     };
     const buttonsList = [
       {
@@ -131,7 +148,7 @@ export const InputPad = defineComponent({
           refAmount.value = "0";
         },
       },
-      { text: "确认", onClick: () => {} },
+      { text: "确认", onClick: () => handleOK() },
     ];
 
     return () => (
