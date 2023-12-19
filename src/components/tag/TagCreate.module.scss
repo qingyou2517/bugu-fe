@@ -4,20 +4,3 @@
   position: relative;
   top: 2px;
 }
-.sign_wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-
-  .title {
-    display: inline-block;
-    width: 48px;
-    margin-right: 12px;
-  }
-}
-
-.tips {
-  text-align: center;
-  padding: 10px 0;
-  font-size: 15px;
-}

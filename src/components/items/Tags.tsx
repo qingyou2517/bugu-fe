@@ -1,4 +1,4 @@
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType, ref } from "vue";
 import s from "./Tags.module.scss";
 import { List } from "vant";
 import { useTags } from "../../shared/useTags";
@@ -42,9 +42,36 @@ export const Tags = defineComponent({
     };
     const handleClickAdd = () => {
       context.emit("update:selectTagId", -1);
-      router.push("/tags/create");
+      router.push(`/tags/create?kind=${props.kind}`);
     };
 
+    // 长按编辑
+    let timer: ReturnType<typeof setTimeout>;
+    const currentTag = ref<HTMLDivElement>();
+    const longPress = (id: number) => {
+      router.push(`/tags/${id}/edit?kind=${props.kind}`);
+    };
+    const handleTouchstart = (e: TouchEvent, tag: Tag) => {
+      currentTag.value = e.currentTarget as HTMLDivElement;
+      timer = setTimeout(() => {
+        longPress(tag.id);
+      }, 800);
+    };
+    const handleTouchend = (tag: Tag) => {
+      clearTimeout(timer);
+    };
+    const handleTouchMove = (e: TouchEvent) => {
+      const pointedElement = document.elementFromPoint(
+        e.touches[0].clientX,
+        e.touches[0].clientY
+      );
+      if (
+        currentTag.value !== pointedElement &&
+        currentTag.value?.contains(pointedElement) === false
+      ) {
+        clearTimeout(timer);
+      }
+    };
     return () => (
       <List
         class={s.tags_wrapper}
@@ -53,6 +80,7 @@ export const Tags = defineComponent({
         finished-text=""
         immediate-check={false}
         onLoad={() => handleLoadList()}
+        onTouchmove={handleTouchMove}
       >
         <div class={s.tag} onClick={() => handleClickAdd()}>
           <div class={s.sign}>
@@ -64,6 +92,8 @@ export const Tags = defineComponent({
           <div
             class={[s.tag, props.selectTagId === tag.id ? s.selected : ""]}
             onClick={() => selectTag(tag)}
+            onTouchstart={(e) => handleTouchstart(e, tag)}
+            onTouchend={() => handleTouchend(tag)}
           >
             <div class={s.sign}>{tag.sign}</div>
             <div class={s.name}>{tag.name}</div>

@@ -1,13 +1,13 @@
 import { defineComponent, reactive, ref } from "vue";
 import s from "./ItemCreate.module.scss";
-import { Icon } from "../../shared/Icon";
 import { showDialog, showToast, Tab, Tabs } from "vant";
 import { MainLayout } from "../../layouts/MainLayout";
 import { InputPad } from "./InputPad";
 import { Tags } from "./Tags";
 import { http } from "../../shared/Http";
-import { useRouter } from "vue-router";
 import { AxiosError } from "axios";
+import { useRouter } from "vue-router";
+import { Icon } from "../../shared/Icon";
 
 export const ItemCreate = defineComponent({
   setup: (props, context) => {
@@ -42,10 +42,6 @@ export const ItemCreate = defineComponent({
       }
     };
 
-    const goBack = () => {
-      // router.push("/items")
-    };
-
     // 模拟处理后台报错
     const onError = (error: AxiosError<ResourceError>) => {
       if (error.response?.status === 422) {
@@ -74,7 +70,9 @@ export const ItemCreate = defineComponent({
         })
         .catch(onError);
     };
-
+    const goBack = () => {
+      router.push("/items");
+    };
     return () => (
       <MainLayout>
         {{

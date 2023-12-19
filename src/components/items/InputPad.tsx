@@ -1,4 +1,4 @@
-import { defineComponent, PropType, Ref, ref } from "vue";
+import { defineComponent, PropType, ref } from "vue";
 import s from "./InputPad.module.scss";
 import { DatePicker, Popup } from "vant";
 import dayjs from "dayjs";

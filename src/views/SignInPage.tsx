@@ -69,11 +69,17 @@ export const SignInPage = defineComponent({
         router.push(return_to || "/");
       }
     };
+    const goBack = () => {
+      const { return_to } = route.query;
+      if (return_to) {
+        router.push(return_to.toString());
+      }
+    };
     return () => (
       <MainLayout>
         {{
           title: () => "登录",
-          icon: () => <Icon name="left" class={s.navIcon}></Icon>,
+          icon: () => <Icon name="left" class={s.navIcon} onClick={goBack} />,
           default: () => (
             <div class={s.wrapper}>
               <div class={s.logo}>

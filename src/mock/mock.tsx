@@ -1,6 +1,5 @@
 import { faker } from "@faker-js/faker";
 import { AxiosRequestConfig } from "axios";
-import exp from "constants";
 
 type Mock = (config: AxiosRequestConfig) => [number, any];
 
@@ -15,12 +14,12 @@ export const mockSession: Mock = (config) => {
   ];
 };
 
+let id = 0;
+const createId = () => {
+  return ++id;
+};
 export const mockTagIndex: Mock = (config) => {
   const { kind, page } = config.params;
-  let id = 0;
-  const createId = () => {
-    return ++id;
-  };
   const createTag = (n = 1, attrs?: object) => {
     // 长度为n的对象数组
     return Array.from({ length: n }).map(() => {
@@ -134,4 +133,55 @@ export const mockItemCreate: Mock = (config) => {
       },
     },
   ];
+};
+
+export const mockTagCreate: Mock = (config) => {
+  return [
+    200,
+    {
+      resource: {
+        id: 757,
+        user_id: 286,
+        name: "x",
+        sign: "x",
+        deleted_at: null,
+        created_at: "2023-09-13T16:50:04.694+08:00",
+        updated_at: "2023-09-13T16:50:04.694+08:00",
+        kind: "income",
+      },
+    },
+  ];
+};
+
+export const mockTagShow: Mock = (config) => {
+  const createTag = (attrs?: any) => ({
+    id: createId(),
+    name: faker.lorem.word(),
+    sign: faker.internet.emoji(),
+    kind: "expenses",
+    ...attrs,
+  });
+  return [200, { resource: createTag() }];
+};
+
+export const mockTagEdit: Mock = (config) => {
+  return [
+    200,
+    {
+      resource: {
+        id: 757,
+        user_id: 286,
+        name: "x",
+        sign: "x",
+        deleted_at: null,
+        created_at: "2023-09-13T16:50:04.694+08:00",
+        updated_at: "2023-09-13T16:50:04.694+08:00",
+        kind: "income",
+      },
+    },
+  ];
+};
+
+export const mockTagDelete: Mock = (config) => {
+  return [200, {}];
 };

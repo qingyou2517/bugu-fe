@@ -1,14 +1,16 @@
-import { defineComponent, PropType, reactive, ref } from "vue";
+import { defineComponent, reactive, ref } from "vue";
 import s from "./StatisticsPage.module.scss";
 import { MainLayout } from "../layouts/MainLayout";
-import { Icon } from "../shared/Icon";
 import { Tab, Tabs } from "vant";
 import { Charts } from "../components/statistics/Charts";
 import { DateSelectDialog } from "../components/items/DateSelectDialog";
 import { MySelect } from "../shared/MySelect";
+import { Icon } from "../shared/Icon";
+import { useRouter } from "vue-router";
 
 export const StatisticsPage = defineComponent({
   setup: (props, context) => {
+    const router = useRouter();
     // tab切换
     interface Tab {
       name: string | number;
@@ -33,11 +35,15 @@ export const StatisticsPage = defineComponent({
       { value: "income", text: "收入" },
     ]);
     const category = ref("expense");
+
+    const goBack = () => {
+      router.push("/items");
+    };
     return () => (
       <MainLayout>
         {{
           title: () => "统计",
-          icon: () => <Icon name="left" class={s.navIcon}></Icon>,
+          icon: () => <Icon name="home" class={s.navIcon} onClick={goBack} />,
           default: () => (
             <>
               <div class={s.wrapper}>
