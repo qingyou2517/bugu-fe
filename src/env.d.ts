@@ -42,11 +42,18 @@ type Item = {
   user_id: number
   amount: number
   tags_id: number[]
+  tags: Tag[]
   happen_at: string
   kind: "expenses" | "income"
 }
 
-// 
 type ResourceError = {
   errors: Record<string, string[]>
+}
+
+// 收支总结
+type Balance = {
+  income: number
+  expenses: number
+  balance: number
 }

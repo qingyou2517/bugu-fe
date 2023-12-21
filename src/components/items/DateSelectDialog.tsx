@@ -17,6 +17,12 @@ export const DateSelectDialog = defineComponent({
       type: Boolean as PropType<boolean>,
       default: false,
     },
+    startDate: {
+      type: String as PropType<string>,
+    },
+    endDate: {
+      type: String as PropType<string>,
+    },
   },
   setup: (props, context) => {
     // 时间选择对话框：使用Overlay、Form来封装
@@ -43,6 +49,8 @@ export const DateSelectDialog = defineComponent({
         });
         return;
       }
+      context.emit("update:startDate", dayjs(formData.startDate).format());
+      context.emit("update:endDate", dayjs(formData.endDate).format());
       closeOverlay();
     };
     context.expose({ openOverlay });
