@@ -1,74 +1,53 @@
 :root {
-  --welcome-card-bg: white;
-  --welcome-text: white;
-  --welcome-bg-start: #5d33be;
-  --welcome-bg-end: #8f4cd7;
-  --welcome-nav-height: 64px;
-  --welcome-nav-gap: 8px;
-
-  --z-index-bottom-nav: 8;
-  --z-index-overlay: 16;
-
-  --transition-duration: 0.5s;
-
-  --button-bg: #5c33be;
-  --button-bg-danger: #e10505;
-  --button-text: white;
-  --button-font-size: 15px;
-  --button-radius: 8px;
-  --button-height: 48px;
-  --button-border-color: #ddd;
-  --button-bg-key: white;
-  --button-bg-form: #7d59d0;
-
-  --float-button-text: white;
-  --float-button-bg: var(--button-bg);
-
-  --navbar-bg-start: var(--welcome-bg-start);
-  --navbar-bg-end: var(--welcome-bg-end);
-  --navbar-text: white;
-
-  --overlay-mask-bg: rgba(0, 0, 0, 0.5);
-  --overlay-bg: white;
-  --overlay-user-bg: #8b66e1;
-  --overlay-user-text: white;
-
-  --top-safe-area-height: 24px;
-
+  ---select-title-text: #333;
   --amount-text: #53a867;
-
+  --app-name-text: #7878ff;
+  --bar-bg: #cccccc;
+  --bg: white;
+  --button-bg-danger: #e10505;
+  --button-bg-form: #7d59d0;
+  --button-bg-key: white;
+  --button-bg: #5c33be;
+  --button-border-color: #ddd;
+  --button-font-size: 15px;
+  --button-height: 48px;
+  --button-radius: 8px;
+  --button-text: white;
   --date-text: #333;
-
-  --main: #5c33be;
-
-  --tag-bg: #efefef;
-
-  --input-min-height: 48px;
+  --dialog-header-text: white;
+  --emoji-nav-text-selected: #333;
+  --emoji-nav-text: #999;
+  --float-button-bg: var(--button-bg);
+  --float-button-text: white;
   --input-border-color: #5c33be;
+  --input-min-height: 48px;
   --input-radius: var(--button-radius);
   --input-shadow: rgba(0, 0, 0, 0.25);
-
-  --emoji-nav-text: #999;
-  --emoji-nav-text-selected: #333;
-
-  --list-tag-text: #333;
   --list-amount-text: var(--amount-text);
+  --list-tag-text: #333;
   --list-time-text: #999;
-
-  --total-bg: #252a43;
-  --total-text: white;
-  --total-income: #fe7275;
-  --total-expenses: #53a867;
-
-  --dialog-header-text: white;
-
-  --bg: white;
-
-  --app-name-text: #7878ff;
-
-  ---select-title-text: #333;
-
+  --main: #5c33be;
+  --navbar-bg-end: var(--welcome-bg-end);
+  --navbar-bg-start: var(--welcome-bg-start);
+  --navbar-text: white;
+  --overlay-bg: white;
+  --overlay-mask-bg: rgba(0, 0, 0, 0.5);
+  --overlay-user-bg: #8b66e1;
+  --overlay-user-text: white;
+  --tag-bg: #efefef;
   --text-muted: #666;
-
-  --bar-bg: #cccccc;
+  --top-safe-area-height: 24px;
+  --total-bg: #252a43;
+  --total-expenses: #53a867;
+  --total-income: #fe7275;
+  --total-text: white;
+  --transition-duration: 0.5s;
+  --welcome-bg-end: #8f4cd7;
+  --welcome-bg-start: #5d33be;
+  --welcome-card-bg: white;
+  --welcome-nav-gap: 8px;
+  --welcome-nav-height: 64px;
+  --welcome-text: white;
+  --z-index-bottom-nav: 8;
+  --z-index-overlay: 16;
 }
