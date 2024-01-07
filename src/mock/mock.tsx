@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { AxiosRequestConfig } from "axios";
 import exp from "constants";
+import dayjs from "dayjs";
 
 type Mock = (config: AxiosRequestConfig) => [number, any];
 
@@ -237,4 +238,103 @@ export const mockTagEdit: Mock = (config) => {
 
 export const mockTagDelete: Mock = (config) => {
   return [200, {}];
+};
+
+// 统计图表
+export const mockItemSummary: Mock = (config) => {
+  const { happened_after, happen_before, kind } = config.params;
+  const startDate = dayjs(happened_after);
+  const endDate = dayjs(happen_before);
+  const thisMonth = dayjs().startOf("month");
+  const lastMonth = thisMonth.add(-1, "month").startOf("month");
+  if (
+    startDate.isSame(thisMonth, "month") &&
+    endDate.isSame(thisMonth, "month")
+  ) {
+    // console.log("本月");
+    return [
+      200,
+      {
+        groups: [
+          {
+            happened_at: startDate.format("YYYY-MM-DD"),
+            amount: kind === "expenses" ? 10000 : 0,
+          },
+          {
+            happened_at: startDate.add(2, "day").format("YYYY-MM-DD"),
+            amount: kind === "expenses" ? 0 : 10000,
+          },
+          {
+            happened_at: endDate.format("YYYY-MM-DD"),
+            amount: 10000,
+          },
+        ],
+      },
+    ];
+  } else if (
+    startDate.isSame(lastMonth, "month") &&
+    endDate.isSame(lastMonth, "month")
+  ) {
+    // console.log("上个月");
+    return [
+      200,
+      {
+        groups: [
+          {
+            happened_at: startDate.add(1, "day").format("YYYY-MM-DD"),
+            amount: 20000,
+          },
+          {
+            happened_at: startDate.add(2, "day").format("YYYY-MM-DD"),
+            amount: kind === "expenses" ? 25000 : 0,
+          },
+          {
+            happened_at: endDate.format("YYYY-MM-DD"),
+            amount: 20000,
+          },
+        ],
+      },
+    ];
+  } else if (
+    startDate.isSame(dayjs().startOf("year"), "day") &&
+    endDate.isSame(dayjs().endOf("year"), "day")
+  ) {
+    // console.log("今年");
+    return [
+      200,
+      {
+        groups: [
+          {
+            happened_at: startDate.format("YYYY-MM-DD"),
+            amount: 30000,
+          },
+          {
+            happened_at: startDate.add(1, "month").format("YYYY-MM-DD"),
+            amount: kind === "expenses" ? 0 : 30000,
+          },
+          {
+            happened_at: endDate.add(-2, "month").format("YYYY-MM-DD"),
+            amount: kind === "expenses" ? 30000 : 35000,
+          },
+        ],
+      },
+    ];
+  } else {
+    // console.log("自定义时间");
+    const array: Data[] = [];
+    let date = startDate.add(0, "month");
+    while (date.isBefore(endDate)) {
+      array.push({
+        happened_at: date.format("YYYY-MM-DD"),
+        amount: kind === "expenses" ? 40000 : 45000,
+      });
+      date = date.add(1, "month");
+    }
+    return [
+      200,
+      {
+        groups: array,
+      },
+    ];
+  }
 };

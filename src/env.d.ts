@@ -57,3 +57,9 @@ type Balance = {
   expenses: number
   balance: number
 }
+
+// 统计图表
+type Data = {
+  happened_at: string
+  amount: number
+}

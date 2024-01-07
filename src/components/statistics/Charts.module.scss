@@ -1,3 +1,19 @@
 .wrapper {
   padding: 16px;
 }
+
+// chart设置超出的宽度，并设置外层容器可滑动
+.lineChart1 {
+  width: calc((100vw - 32px) * 31 / 12);
+}
+.lineChart2 {
+  width: calc((100vw - 32px));
+}
+// 横向滚动
+.lineChart_wrapper {
+  width: calc(100vw - 32px);
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

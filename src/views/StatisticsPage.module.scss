@@ -9,10 +9,6 @@
     &::-webkit-scrollbar {
       display: none;
     }
-
-    .select_wrapper {
-      padding: 8px;
-    }
   }
 }
 
@@ -21,4 +17,11 @@
   height: 24px;
   position: relative;
   top: 2px;
+}
+
+.text {
+  font-size: 15px;
+  margin: 16px;
+  display: flex;
+  justify-content: center;
 }

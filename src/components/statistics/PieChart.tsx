@@ -1,4 +1,5 @@
 import {
+  PropType,
   defineComponent,
   nextTick,
   onBeforeUnmount,
@@ -10,6 +11,14 @@ import * as echarts from "echarts";
 import { EChartsType } from "echarts";
 
 export const PieChart = defineComponent({
+  props: {
+    startDate: {
+      type: String as PropType<string>,
+    },
+    endDate: {
+      type: String as PropType<string>,
+    },
+  },
   setup: (props, context) => {
     const refDiv = ref<HTMLDivElement>(); // dom 容器
     let myChart: EChartsType;
@@ -17,7 +26,6 @@ export const PieChart = defineComponent({
       if (refDiv.value === undefined) return;
       await nextTick();
       myChart = echarts.init(refDiv.value);
-
       const option = {
         grid: [{ left: 0, top: 0, right: 0, bottom: 20 }],
         series: [

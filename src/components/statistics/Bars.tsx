@@ -2,11 +2,14 @@ import { computed, defineComponent, PropType, reactive } from "vue";
 import s from "./Bars.module.scss";
 
 export const Bars = defineComponent({
-  // props: {
-  //   name: {
-  //     type: String as PropType<string>,
-  //   },
-  // },
+  props: {
+    startDate: {
+      type: String as PropType<string>,
+    },
+    endDate: {
+      type: String as PropType<string>,
+    },
+  },
   setup: (props, context) => {
     const data = reactive([
       { tag: { id: 1, name: "房租", sign: "x" }, amount: 3000 },
