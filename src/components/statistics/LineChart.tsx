@@ -107,11 +107,20 @@ export const LineChart = defineComponent({
       if (myChart) echarts.dispose(myChart);
     });
 
-    // 修复get数据后，图表空白的问题：watch监听data，若data更新，则重新setOption()
+    // 修复get数据后，图表空白的问题：watch监听data，若data更新，则重新resize、setOption
     watch(
       () => props.data,
       () => {
+        myChart.resize();
         myChart.setOption({
+          grid: props.showByDay
+            ? [{ left: 0, top: 20, right: 0, bottom: 20 }]
+            : [{ left: 0, top: 20, right: 0, bottom: 45 }],
+          xAxis: {
+            axisLabel: {
+              rotate: props.showByDay ? 0 : 40,
+            },
+          },
           series: [
             {
               data: props.data,
