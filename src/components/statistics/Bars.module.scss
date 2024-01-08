@@ -1,6 +1,5 @@
 .wrapper {
   margin-bottom: 128px;
-  // padding: 16px;
 }
 .topItem {
   margin-top: 16px;
@@ -41,7 +40,8 @@
       top: 0;
       left: 0;
       height: 100%;
-      width: 42px;
+      width: 0px;
+      transition: width 500ms;
     }
   }
   &:nth-child(1) {

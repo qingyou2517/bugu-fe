@@ -6,6 +6,7 @@ import { Bars } from "./Bars";
 import dayjs from "dayjs";
 import { http } from "../../shared/Http";
 import { MySelect } from "../../shared/MySelect";
+import { amountFormat } from "../../shared/format";
 
 export const Charts = defineComponent({
   props: {
@@ -150,6 +151,26 @@ export const Charts = defineComponent({
     };
     getPieData();
 
+    // 条形图
+    const barsData = computed<(Data2 & { percent: number })[]>(() => {
+      const total = data2.value.reduce((sum, item) => sum + item.amount, 0);
+      const array = data2.value.map((item) => ({
+        ...item,
+        percent: (item.amount / total) * 100,
+      }));
+      // 从大到小排序，最终只取金额最大的三项组成数组，作为条形图的数据来源
+      array.sort((a, b) => b.percent - a.percent);
+      if (array.length <= 0) {
+        return [];
+      } else if (array.length <= 1) {
+        return [array[0]];
+      } else if (array.length <= 2) {
+        return [array[0], array[1]];
+      } else {
+        return [array[0], array[1], array[2]];
+      }
+    });
+
     // 自定义时间：使用watch监听日期的改变
     watch(
       () => [props.startDate, props.endDate],
@@ -188,7 +209,7 @@ export const Charts = defineComponent({
           )}
         </div>
         <PieChart data={pieData.value} />
-        <Bars />
+        <Bars data={barsData.value} />
       </div>
     );
   },

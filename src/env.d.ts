@@ -68,6 +68,7 @@ type Data1 = {
 type TObj = {
   id: number
   name: string
+  sign: string
 }
 type Data2 = {
   tag_id: number

@@ -343,13 +343,26 @@ export const mockItemSummary: Mock = (config) => {
       200,
       {
         groups: [
-          { tag_id: 1, tag: { id: 1, name: "交通" }, amount: 100 },
+          {
+            tag_id: 1,
+            tag: { id: 1, name: "交通", sign: faker.internet.emoji() },
+            amount: 10000,
+          },
           {
             tag_id: 2,
-            tag: { id: 2, name: "吃饭" },
-            amount: kind === "expenses" ? 300 : 100,
+            tag: { id: 2, name: "吃饭", sign: faker.internet.emoji() },
+            amount: kind === "expenses" ? 30000 : 10000,
           },
-          { tag_id: 3, tag: { id: 3, name: "购物" }, amount: 200 },
+          {
+            tag_id: 3,
+            tag: { id: 3, name: "购物", sign: faker.internet.emoji() },
+            amount: 20000,
+          },
+          {
+            tag_id: 4,
+            tag: { id: 3, name: "住宿", sign: faker.internet.emoji() },
+            amount: 20000,
+          },
         ],
       },
     ];

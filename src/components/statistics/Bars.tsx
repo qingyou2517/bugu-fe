@@ -1,50 +1,65 @@
-import { computed, defineComponent, PropType, reactive } from "vue";
+import { computed, defineComponent, PropType, reactive, ref } from "vue";
 import s from "./Bars.module.scss";
+import { amountFormat } from "../../shared/format";
 
 export const Bars = defineComponent({
   props: {
-    startDate: {
-      type: String as PropType<string>,
-    },
-    endDate: {
-      type: String as PropType<string>,
+    data: {
+      type: Array as PropType<(Data2 & { percent: number })[]>,
+      required: true,
     },
   },
   setup: (props, context) => {
-    const data = reactive([
-      { tag: { id: 1, name: "房租", sign: "x" }, amount: 3000 },
-      { tag: { id: 2, name: "吃饭", sign: "x" }, amount: 1000 },
-      { tag: { id: 3, name: "娱乐", sign: "x" }, amount: 900 },
-    ]);
-    const betterData = computed(() => {
-      const total = data.reduce((sum, item) => sum + item.amount, 0);
-      return data.map((item) => ({
-        ...item,
-        percent: Math.round((item.amount / total) * 100) + "%",
-      }));
-    });
+    // const data = computed<(Data2 & { percent: number })[]>(() => {
+    //   if (!props.data) return [];
+    //   if (props.data.length <= 1) {
+    //     return [props.data[0]];
+    //   } else if (props.data.length <= 2) {
+    //     return [props.data[0], props.data[1]];
+    //   } else {
+    //     return [props.data[0], props.data[1], props.data[2]];
+    //   }
+    // });
 
     return () => (
       <div class={s.wrapper}>
-        {betterData.value.map(({ tag, amount, percent }) => {
-          return (
-            <div class={s.topItem}>
-              <div class={s.sign}>{tag.sign}</div>
-              <div class={s.bar_wrapper}>
-                <div class={s.bar_text}>
-                  <span>
-                    {" "}
-                    {tag.name} - {percent}{" "}
-                  </span>
-                  <span> ￥{amount} </span>
-                </div>
-                <div class={s.bar}>
-                  <div class={s.bar_inner}></div>
+        {props.data && props.data.length > 0 ? (
+          props.data.map(({ tag, amount, percent }) => {
+            return (
+              <div class={s.topItem}>
+                <div class={s.sign}>{tag.sign}</div>
+                <div class={s.bar_wrapper}>
+                  <div class={s.bar_text}>
+                    <span>
+                      {" "}
+                      {tag.name} - {percent.toFixed(2)} %
+                    </span>
+                    <span> ￥{amountFormat(amount)} </span>
+                  </div>
+                  <div class={s.bar}>
+                    <div
+                      class={s.bar_inner}
+                      style={{ width: `${percent.toFixed(2)}%` }}
+                    ></div>
+                  </div>
                 </div>
               </div>
+            );
+          })
+        ) : (
+          <div class={s.topItem}>
+            <div class={s.sign}>无</div>
+            <div class={s.bar_wrapper}>
+              <div class={s.bar_text}>
+                <span> 未知 - 0.00%</span>
+                <span> ￥0.00 </span>
+              </div>
+              <div class={s.bar}>
+                <div class={s.bar_inner}></div>
+              </div>
             </div>
-          );
-        })}
+          </div>
+        )}
       </div>
     );
   },
