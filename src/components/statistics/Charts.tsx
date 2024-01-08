@@ -114,6 +114,7 @@ export const Charts = defineComponent({
             kind: kind.value,
             _mock: "itemSummary",
             group_by: "happened_at",
+            _autoLoading: true,
           }
         );
         data1.value = res.data.groups;

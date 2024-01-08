@@ -52,8 +52,8 @@ export const StartPage = defineComponent({
               <Center class={s.pig_wrapper}>
                 <Icon name="pig" class={s.pig}></Icon>
               </Center>
-              <RouterLink to="/items/create">
-                <MyButton>开始记账</MyButton>
+              <RouterLink to="/items">
+                <MyButton>进入首页</MyButton>
               </RouterLink>
               <RouterLink to="/items/create">
                 <FloatButton iconName="add" />

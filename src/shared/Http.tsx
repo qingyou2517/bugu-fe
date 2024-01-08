@@ -16,7 +16,7 @@ import {
   mockTagIndex,
   mockTagShow,
 } from "../mock/mock";
-import { showDialog } from "vant";
+import { closeToast, showDialog, showLoadingToast } from "vant";
 
 export class Http {
   instance: AxiosInstance;
@@ -28,7 +28,7 @@ export class Http {
   // read
   get<R = unknown>(
     url: string,
-    query?: Record<string, string | number>,
+    query?: Record<string, string | number | boolean>,
     config?: Omit<AxiosRequestConfig, "params" | "url" | "method">
   ) {
     return this.instance.request<R>({
@@ -121,11 +121,29 @@ http.instance.interceptors.request.use(
     if (jwt) {
       config.headers!.Authorization = `Bearer ${jwt}`;
     }
+    if (config.params && config.params._autoLoading === true) {
+      showLoadingToast({
+        message: "加载中...",
+        forbidClick: true,
+      });
+    }
     return config;
   },
   (error) => {
     // 对请求错误做些什么
     return Promise.reject(error);
+  }
+);
+
+// 增加一个响应拦截器，用作清除请求数据时的loading
+http.instance.interceptors.response.use(
+  (response) => {
+    closeToast();
+    return response;
+  },
+  (error) => {
+    closeToast();
+    throw error;
   }
 );
 

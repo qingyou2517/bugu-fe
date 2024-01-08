@@ -15,7 +15,7 @@ export const SignInPage = defineComponent({
     const formRef = ref<FormInstance>();
     const formData = reactive({
       email: "2517789608@qq.com",
-      code: "807484",
+      code: "102641",
     });
     const emailRules = [
       { required: true, message: "请填写邮箱地址" },
@@ -37,11 +37,19 @@ export const SignInPage = defineComponent({
       });
       hasClickSend.value = true; // 放在 axios 请求前
       const res = await http
-        .post("/validation_codes", {
-          email: formData.email,
-        })
+        .post(
+          "/validation_codes",
+          {
+            email: formData.email,
+          },
+          {
+            params: {
+              _autoLoading: true,
+            },
+          }
+        )
         .catch((err) => {
-          // console.log(err);
+          // console.err(err);
           // throw err; // 阻塞下面的代码执行
         })
         .finally(() => {
