@@ -185,8 +185,9 @@ export const mockItemIndex: Mock = (config) => {
   } else if (page === 2) {
     return [200, createBody(1)];
   } else {
-    return [200, {}];
+    return [200, createBody(0)];
   }
+  // return [200, createBody(0)];
 };
 
 export const mockTagCreate: Mock = (config) => {
