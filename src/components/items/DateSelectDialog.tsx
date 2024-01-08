@@ -23,6 +23,9 @@ export const DateSelectDialog = defineComponent({
     endDate: {
       type: String as PropType<string>,
     },
+    limitGap: {
+      type: Number,
+    },
   },
   setup: (props, context) => {
     // 时间选择对话框：使用Overlay、Form来封装
@@ -40,12 +43,32 @@ export const DateSelectDialog = defineComponent({
       show.value = false;
     };
     const handleOk = () => {
-      // 注意字符串1-1会比09-1大，所以日期为字符串时，不应该直接用字符串比较
+      if (!formData.startDate || !formData.endDate) {
+        showToast({
+          type: "fail",
+          duration: 1500,
+          message: "请选择两个日期",
+        });
+        return;
+      }
       if (dayjs(formData.endDate).isBefore(dayjs(formData.startDate))) {
+        // 注意字符串1-1会比09-1大，所以日期为字符串时，不应该直接用字符串比较
         showToast({
           type: "fail",
           duration: 1500,
           message: "结束时间必须大于开始时间",
+        });
+        return;
+      }
+      if (
+        props.limitGap &&
+        dayjs(formData.endDate).diff(formData.startDate, "year", true) >
+          props.limitGap
+      ) {
+        showToast({
+          type: "fail",
+          duration: 1500,
+          message: "间隔不能超过1年",
         });
         return;
       }

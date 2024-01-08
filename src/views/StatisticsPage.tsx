@@ -105,6 +105,7 @@ export const StatisticsPage = defineComponent({
                   v-model:show={show.value}
                   v-model:startDate={defineDate.startDate}
                   v-model:endDate={defineDate.endDate}
+                  limitGap={1}
                 ></DateSelectDialog>
               </div>
             </>
