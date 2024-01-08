@@ -37,7 +37,7 @@ export const Charts = defineComponent({
     });
 
     // 折线图数据
-    const data1 = ref<Data[]>([]);
+    const data1 = ref<Data1[]>([]);
     const lineData_byDay = computed<[string, number][]>(() => {
       let n = dayjs(props.endDate).diff(props.startDate, "day") + 1;
       let index = 0;
@@ -105,7 +105,7 @@ export const Charts = defineComponent({
     });
     const getLineData = async () => {
       try {
-        const res = await http.get<{ groups: Data[]; amount: number }>(
+        const res = await http.get<{ groups: Data1[]; amount: number }>(
           "/items/summary",
           {
             happened_after: props.startDate,
@@ -122,6 +122,34 @@ export const Charts = defineComponent({
     };
     getLineData();
 
+    // 饼图数据
+    const data2 = ref<Data2[]>([]);
+    const pieData = computed<{ name: string; value: number }[]>(() => {
+      // js return 一个对象时，必须用括号包裹
+      return data2.value.map((item) => ({
+        name: item.tag.name,
+        value: item.amount,
+      }));
+    });
+    const getPieData = async () => {
+      try {
+        const res = await http.get<{ groups: Data2[]; amount: number }>(
+          "/items/summary",
+          {
+            happened_after: props.startDate,
+            happen_before: props.endDate,
+            kind: kind.value,
+            _mock: "itemSummary",
+            group_by: "tag_id",
+          }
+        );
+        data2.value = res.data.groups;
+      } catch (err) {
+        console.error("getLineData error:", err);
+      }
+    };
+    getPieData();
+
     // 自定义时间：使用watch监听日期的改变
     watch(
       () => [props.startDate, props.endDate],
@@ -135,6 +163,7 @@ export const Charts = defineComponent({
       () => kind.value,
       () => {
         getLineData();
+        getPieData();
       }
     );
 
@@ -158,7 +187,7 @@ export const Charts = defineComponent({
             />
           )}
         </div>
-        <PieChart startDate={props.startDate} endDate={props.endDate} />
+        <PieChart data={pieData.value} />
         <Bars />
       </div>
     );

@@ -58,8 +58,19 @@ type Balance = {
   balance: number
 }
 
-// 统计图表
-type Data = {
+// 后台返回的折线图数据类型
+type Data1 = {
   happened_at: string
+  amount: number
+}
+
+// 后台返回的饼图数据类型
+type TObj = {
+  id: number
+  name: string
+}
+type Data2 = {
+  tag_id: number
+  tag: TObj
   amount: number
 }
