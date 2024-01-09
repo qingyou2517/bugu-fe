@@ -73,9 +73,10 @@ export const http = new Http("/api/v1");
 
 const mock = (response: AxiosResponse) => {
   if (
-    location.hostname !== "localhost" &&
-    location.hostname !== "127.0.0.1" &&
-    location.hostname !== "192.168.0.101"
+    true ||
+    (location.hostname !== "localhost" &&
+      location.hostname !== "127.0.0.1" &&
+      location.hostname !== "192.168.0.101")
   ) {
     return false;
   }

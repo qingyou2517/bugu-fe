@@ -20,7 +20,7 @@ type Tag = {
   user_id?: number
   name: string
   sign: string
-  kind: "expense" | "income"
+  kind: "expenses" | "income"
 }
 
 // 请求记账标签
@@ -41,7 +41,7 @@ type Item = {
   id: number
   user_id: number
   amount: number
-  tags_id: number[]
+  tag_ids: number[]
   tags: Tag[]
   happen_at: string
   kind: "expenses" | "income"

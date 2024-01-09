@@ -25,10 +25,4 @@ export default defineConfig({
       },
     },
   },
-  // resolve: {
-  //   alias: {
-  //     // 映射模块名到具体的文件路径
-  //     '@types': '/src',
-  //   },
-  // },
 })

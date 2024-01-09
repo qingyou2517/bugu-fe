@@ -9,7 +9,8 @@ import {
 import s from "./ItemSummary.module.scss";
 import { Cell, List, PullRefresh } from "vant";
 import { http } from "../../shared/Http";
-import { amountFormat, dateFormat } from "../../shared/format";
+import { dateFormat } from "../../shared/format";
+import { useRouter } from "vue-router";
 
 export const ItemSummary = defineComponent({
   props: {
@@ -23,6 +24,7 @@ export const ItemSummary = defineComponent({
     },
   },
   setup: (props, context) => {
+    const router = useRouter();
     // 获取收支总结：所需时间格式如 2023-09-03
     const balanceData = reactive<Balance>({
       income: 0,
@@ -124,6 +126,11 @@ export const ItemSummary = defineComponent({
       }
     );
 
+    // 点击收支总结，跳转统计页面
+    const goStatistics = () => {
+      router.push("/statistics");
+    };
+
     return () => (
       <>
         <PullRefresh
@@ -131,18 +138,18 @@ export const ItemSummary = defineComponent({
           success-text="刷新成功"
           onRefresh={() => handleRefresh()}
         >
-          <ul class={s.total}>
+          <ul class={s.total} onClick={goStatistics}>
             <li>
               <span>收入</span>
-              <span>{amountFormat(balanceData.income)}</span>
+              <span>{balanceData.income.toFixed(2)}</span>
             </li>
             <li>
               <span>支出</span>
-              <span>{amountFormat(balanceData.expenses)}</span>
+              <span>{balanceData.expenses.toFixed(2)}</span>
             </li>
             <li>
               <span>净收入</span>
-              <span>{amountFormat(balanceData.balance)}</span>
+              <span>{balanceData.balance.toFixed(2)}</span>
             </li>
           </ul>
           <List
@@ -157,14 +164,17 @@ export const ItemSummary = defineComponent({
               <Cell>
                 <div class={s.item}>
                   <div class={s.sign}>
-                    <span>{item.tags_id[0]}</span>
+                    <span>{item.tag_ids[0]}</span>
                   </div>
                   <div class={s.text}>
                     <div class={s.tagAndAmount}>
                       <span class={s.tag}>{item.tags[0].name}</span>
                       <span class={s.amount}>
-                        {item.kind === "expenses" ? "- " : "+ "}
-                        {amountFormat(item.amount)}￥
+                        {item.kind === "expenses" ? (
+                          <span class={s.dec}>-￥{item.amount.toFixed(2)}</span>
+                        ) : (
+                          <span class={s.add}>+￥{item.amount.toFixed(2)}</span>
+                        )}
                       </span>
                     </div>
                     <div class={s.time}>{dateFormat(item.happen_at)}</div>

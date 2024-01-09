@@ -15,13 +15,13 @@ export const ItemCreate = defineComponent({
     // 收集记账tags、时间与金额
     type Data = {
       kind: string;
-      tags_id: number[];
+      tag_ids: number[];
       amount: number;
       happen_at: string;
     };
     const data: Data = reactive({
       kind: "expenses",
-      tags_id: [-1],
+      tag_ids: [-1],
       amount: 0,
       happen_at: new Date().toISOString(),
     });
@@ -54,6 +54,13 @@ export const ItemCreate = defineComponent({
     };
     // 提交
     const handleSubmit = async () => {
+      if (data.tag_ids[0] === -1) {
+        showDialog({
+          title: "提示",
+          message: "请选择一个记账标签",
+        });
+        return;
+      }
       await http
         .post<Resource<Item>>("/items", data, {
           params: {
@@ -94,14 +101,14 @@ export const ItemCreate = defineComponent({
                     <Tags
                       kind="expenses"
                       ref={tagsRef1}
-                      v-model:selectTagId={data.tags_id[0]}
+                      v-model:selectTagId={data.tag_ids[0]}
                     ></Tags>
                   </Tab>
                   <Tab title="收入">
                     <Tags
                       kind="income"
                       ref={tagsRef2}
-                      v-model:selectTagId={data.tags_id[0]}
+                      v-model:selectTagId={data.tag_ids[0]}
                     ></Tags>
                   </Tab>
                 </Tabs>

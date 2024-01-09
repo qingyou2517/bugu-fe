@@ -1,6 +1,6 @@
 import { defineComponent, PropType, ref } from "vue";
 import s from "./InputPad.module.scss";
-import { DatePicker, Popup } from "vant";
+import { DatePicker, Popup, showDialog } from "vant";
 import dayjs from "dayjs";
 import { Icon } from "../../shared/Icon";
 
@@ -65,6 +65,13 @@ export const InputPad = defineComponent({
       }
     };
     const handleOK = () => {
+      if (!Number(refAmount.value)) {
+        showDialog({
+          title: "提示",
+          message: "记账金额不能为0",
+        });
+        return;
+      }
       context.emit("update:amount", parseFloat(refAmount.value));
       refAmount.value = "0";
       props.onSubmit?.();

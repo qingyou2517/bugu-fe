@@ -35,13 +35,11 @@ export const LineChart = defineComponent({
         formatter: ([item]: any) => {
           const [x, y] = item.data;
           if (props.showByDay) {
-            return `${dayjs(new Date(x)).format("YYYY-MM-DD")} ￥${amountFormat(
-              y
+            return `${dayjs(new Date(x)).format("YYYY-MM-DD")} ￥${y.toFixed(
+              2
             )}`;
           } else {
-            return `${dayjs(new Date(x)).format("YYYY-MM")} ￥${amountFormat(
-              y
-            )}`;
+            return `${dayjs(new Date(x)).format("YYYY-MM")} ￥${y.toFixed(2)}`;
           }
         },
       },

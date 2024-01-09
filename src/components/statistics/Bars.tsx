@@ -34,7 +34,7 @@ export const Bars = defineComponent({
                       {" "}
                       {tag.name} - {percent.toFixed(2)} %
                     </span>
-                    <span> ￥{amountFormat(amount)} </span>
+                    <span> ￥{amount.toFixed(2)} </span>
                   </div>
                   <div class={s.bar}>
                     <div

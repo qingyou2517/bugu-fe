@@ -114,7 +114,7 @@ export const mockItemCreate: Mock = (config) => {
   //   422,
   //   {
   //     errors: {
-  //       tags_id: ["必须选择一个标签"],
+  //       tag_ids: ["必须选择一个标签"],
   //       amount: ["必须输入金额"],
   //     },
   //   },
@@ -127,7 +127,7 @@ export const mockItemCreate: Mock = (config) => {
         user_id: 1312,
         amount: 9900,
         note: null,
-        tags_id: [3508],
+        tag_ids: [3508],
         happen_at: "2020-10-29T16:00:00.000Z",
         created_at: "2022-07-03T15:35:56.301Z",
         updated_at: "2022-07-03T15:35:56.301Z",
@@ -171,7 +171,7 @@ export const mockItemIndex: Mock = (config) => {
       id: createId(),
       user_id: createId(),
       amount: Math.floor(Math.random() * 10000), // 数据库的金额以分为单位
-      tags_id: [createId()],
+      tag_ids: [createId()],
       tags: [createTag()],
       happen_at: faker.date.past().toISOString(),
       kind: "income",

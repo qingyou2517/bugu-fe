@@ -29,7 +29,7 @@ export const PieChart = defineComponent({
         trigger: "item",
         formatter: (x: { name: string; value: number; percent: number }) => {
           const { name, value, percent } = x;
-          return `${name}: ￥${amountFormat(value)} 占比 ${percent}%`;
+          return `${name}: ￥${value.toFixed(2)} 占比 ${percent}%`;
         },
       },
       grid: [{ left: 0, top: 20, right: 0, bottom: 20 }],

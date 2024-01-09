@@ -64,9 +64,12 @@
   }
 }
 
-.tip {
-  font-size: 15px;
-  margin: 16px;
-  display: flex;
-  justify-content: center;
+.dec {
+  font-size: 14px;
+  color: var(--total-expenses);
+}
+.add {
+  font-size: 14px;
+
+  color: var(--total-income);
 }
