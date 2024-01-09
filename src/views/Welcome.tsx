@@ -27,7 +27,7 @@ export const Welcome = defineComponent({
     });
     const push = throttle(() => {
       // 节流
-      let name = routes.name.toString();
+      let name = routes.name!.toString();
       router.push(pushMap[name]);
     }, 500);
     watchEffect(() => {

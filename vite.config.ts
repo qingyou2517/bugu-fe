@@ -17,12 +17,18 @@ export default defineConfig({
     }),
     svgstore(),
   ],
-  server: {				
+  server: {
     host: '0.0.0.0',	// 真机调试
     proxy: {
       "/api/v1": {
         target: "http://121.196.236.94:3000",
       },
     },
-  }		
+  },
+  // resolve: {
+  //   alias: {
+  //     // 映射模块名到具体的文件路径
+  //     '@types': '/src',
+  //   },
+  // },
 })

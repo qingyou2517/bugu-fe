@@ -1,18 +1,21 @@
-import { defineComponent, PropType } from 'vue';
-import s from './MyOverlay.module.scss';
-import { RouterLink } from 'vue-router';
-import { Icon } from './Icon';
+import { defineComponent, PropType } from "vue";
+import s from "./MyOverlay.module.scss";
+import { RouterLink } from "vue-router";
+import { Icon } from "./Icon";
 
 export const MyOverlay = defineComponent({
   props: {
     onClose: {
-      type: Function as PropType<(e: TouchEvent) => void>
-    }
+      type: Function as PropType<(e: MouseEvent) => void>,
+    },
   },
   setup: (props, context) => {
     return () => (
       <>
-        <div class={s.mask} onClick={props.onClose}></div>
+        <div
+          class={s.mask}
+          onClick={(e: MouseEvent) => props.onClose?.(e)}
+        ></div>
         <div class={s.overlay}>
           <section class={s.currentUser}>
             <h2>未登录</h2>
@@ -48,6 +51,6 @@ export const MyOverlay = defineComponent({
           </nav>
         </div>
       </>
-    )
-  }
-})
+    );
+  },
+});
