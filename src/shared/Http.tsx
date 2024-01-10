@@ -182,6 +182,14 @@ http.instance.interceptors.response.use(
           message: "亲，重复点击了哟!",
         });
       }
+      if (axiosError.response?.status === 401) {
+        localStorage.removeItem("jwt");
+        showDialog({
+          message: "登录过期，请重新登录",
+        }).then(() => {
+          location.reload();
+        });
+      }
     }
     throw error;
   }
