@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { App } from './App'
+import { createPinia } from 'pinia'
 
 import { createRouter } from 'vue-router'
 import { routes } from './config/routes'
@@ -14,7 +15,7 @@ const router = createRouter({
 })
 
 // 全局前置守卫
-router.beforeEach(async (to, from) => {
+router.beforeEach((to, from) => {
   if (
     to.path === "/" ||
     to.path.startsWith("/welcome") ||
@@ -27,7 +28,8 @@ router.beforeEach(async (to, from) => {
     return path;
   }
 });
-
+const pinia = createPinia()
 const app = createApp(App)
+app.use(pinia)
 app.use(router)
 app.mount('#app')

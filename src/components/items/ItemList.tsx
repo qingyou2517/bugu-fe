@@ -9,9 +9,19 @@ import { RouterLink } from "vue-router";
 import { FloatButton } from "../../shared/FloatButton";
 import { DateSelectDialog } from "./DateSelectDialog";
 import dayjs from "dayjs";
+import { useMeStore } from "../../stores/useMeStore";
+import { storeToRefs } from "pinia";
 
 export const ItemList = defineComponent({
   setup: (props, context) => {
+    // 获取用户信息
+    const meStore = useMeStore();
+    const { userInfo } = storeToRefs(meStore);
+    const { getUserInfo } = meStore;
+    if (!userInfo.value.email) {
+      getUserInfo();
+    }
+
     // 侧边导航栏与遮罩层
     const overlayVisible = ref(false);
     const handleClickMenu = () => {

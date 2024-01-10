@@ -75,3 +75,9 @@ type Data2 = {
   tag: TObj
   amount: number
 }
+
+// 用户信息
+type UserInfo = {
+  id: number
+  email: string
+}

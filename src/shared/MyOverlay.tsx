@@ -1,7 +1,10 @@
 import { defineComponent, PropType } from "vue";
 import s from "./MyOverlay.module.scss";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 import { Icon } from "./Icon";
+import { useMeStore } from "../stores/useMeStore";
+import { storeToRefs } from "pinia";
+import { showConfirmDialog } from "vant";
 
 export const MyOverlay = defineComponent({
   props: {
@@ -10,6 +13,31 @@ export const MyOverlay = defineComponent({
     },
   },
   setup: (props, context) => {
+    const router = useRouter();
+    // 用户数据
+    const meStore = useMeStore();
+    const { userInfo } = storeToRefs(meStore);
+    const { resetUserInfo } = meStore;
+
+    // 点击登录
+    const login = () => {
+      router.push("/sign_in?return_to=/items");
+    };
+    // 退出登录
+    const loginOut = async () => {
+      await showConfirmDialog({
+        title: "是否退出登录",
+        message: `当前账号为: ${userInfo.value.email}`,
+      })
+        .then(() => {
+          resetUserInfo();
+          localStorage.removeItem("jwt");
+        })
+        .catch((err) => {
+          // console.log(err);
+        });
+    };
+
     return () => (
       <>
         <div
@@ -17,10 +45,29 @@ export const MyOverlay = defineComponent({
           onClick={(e: MouseEvent) => props.onClose?.(e)}
         ></div>
         <div class={s.overlay}>
-          <section class={s.currentUser}>
-            <h2>未登录</h2>
-            <p>点击这里登录</p>
-          </section>
+          {userInfo.value.email ? (
+            <section class={s.currentUser}>
+              <div class={s.userInfo}>
+                <Icon name="user" class={s.userIcon}></Icon>
+                <h2 class={s.email}>{userInfo.value.email}</h2>
+              </div>
+              <div class={s.logout} onClick={loginOut}>
+                <Icon name="logout" class={s.logoutIcon}></Icon>
+                <h2>点击退出登录</h2>
+              </div>
+            </section>
+          ) : (
+            <section class={s.currentUser}>
+              <div class={s.userInfo}>
+                <Icon name="user" class={s.userIcon}></Icon>
+                <h2 class={s.email}>未登录</h2>
+              </div>
+              <div class={s.logout} onClick={login}>
+                <Icon name="login" class={s.logoutIcon}></Icon>
+                <h2>点击这里登录</h2>
+              </div>
+            </section>
+          )}
           <nav>
             <ul class={s.action_list}>
               <li>

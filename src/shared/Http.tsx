@@ -185,6 +185,7 @@ http.instance.interceptors.response.use(
       if (axiosError.response?.status === 401) {
         localStorage.removeItem("jwt");
         showDialog({
+          title: "提示",
           message: "登录过期，请重新登录",
         }).then(() => {
           location.reload();

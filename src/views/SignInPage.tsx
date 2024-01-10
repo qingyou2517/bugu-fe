@@ -87,7 +87,7 @@ export const SignInPage = defineComponent({
       <MainLayout>
         {{
           title: () => "登录",
-          icon: () => <Icon name="left" class={s.navIcon} onClick={goBack} />,
+          icon: () => <Icon name="user" class={s.navIcon} onClick={goBack} />,
           default: () => (
             <div class={s.wrapper}>
               <div class={s.logo}>
