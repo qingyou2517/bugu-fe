@@ -1,6 +1,6 @@
 import { http } from "../shared/Http";
 import { defineStore } from "pinia";
-import { reactive, ref } from "vue";
+import { reactive } from "vue";
 
 export const useMeStore = defineStore("me", () => {
   const userInfo = reactive({

@@ -8,6 +8,7 @@ import { Icon } from "../shared/Icon";
 import { MyOverlay } from "../shared/MyOverlay";
 import { MainLayout } from "../layouts/MainLayout";
 import { RouterLink } from "vue-router";
+import exp from "constants";
 
 export const StartPage = defineComponent({
   setup: (props, { slots }) => {
@@ -66,3 +67,5 @@ export const StartPage = defineComponent({
     );
   },
 });
+
+export default StartPage;

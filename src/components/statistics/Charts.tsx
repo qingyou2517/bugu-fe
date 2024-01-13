@@ -177,6 +177,7 @@ export const Charts = defineComponent({
       () => [props.startDate, props.endDate],
       () => {
         getLineData();
+        getPieData();
       }
     );
 

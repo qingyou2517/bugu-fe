@@ -7,6 +7,8 @@ declare module '*.vue' {
   export default component
 }
 
+declare var isDev: boolean
+
 type JSONValue =
   | string
   | number

@@ -7,23 +7,16 @@ import { Third } from "../components/welcome/Third";
 import { ThirdAction } from "../components/welcome/ThirdAction";
 import { Forth } from "../components/welcome/Forth";
 import { ForthAction } from "../components/welcome/ForthAction";
-import { Welcome } from "../views/Welcome";
-import { StartPage } from "../views/StartPage";
-import { StatisticsPage } from "../views/StatisticsPage";
-import { ComingSoon } from "../shared/ComingSoon";
-import { ItemPage } from "../views/ItemPage";
 import { ItemCreate } from "../components/items/ItemCreate";
 import { ItemList } from "../components/items/ItemList";
-import { TagPage } from "../views/TagPage";
 import { TagCreate } from "../components/tag/TagCreate";
 import { TagEdit } from "../components/tag/TagEdit";
-import { SignInPage } from "../views/SignInPage";
 
 export const routes: RouteRecordRaw[] = [
   { path: "/", redirect: "/welcome" },
   {
     path: "/welcome",
-    component: Welcome,
+    component: () => import("../views/Welcome"),
     beforeEnter: (to, from, next) => {
       localStorage.getItem("skipFeatures") === "yes" ? next("/start") : next();
     },
@@ -51,10 +44,10 @@ export const routes: RouteRecordRaw[] = [
       },
     ],
   },
-  { path: "/start", component: StartPage },
+  { path: "/start", component: () => import("../views/StartPage") },
   {
     path: "/items",
-    component: ItemPage,
+    component: () => import("../views/ItemPage"),
     children: [
       { path: "", component: ItemList },
       { path: "create", component: ItemCreate },
@@ -62,15 +55,15 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: "/tags",
-    component: TagPage,
+    component: () => import("../views/TagPage"),
     children: [
       { path: "create", component: TagCreate },
       { path: ":id/edit", component: TagEdit },
     ],
   },
-  { path: "/sign_in", component: SignInPage },
-  { path: "/statistics", component: StatisticsPage },
-  { path: "/export", component: ComingSoon },
-  { path: "/classify", component: ComingSoon },
-  { path: "/notify", component: ComingSoon },
+  { path: "/sign_in", component: () => import("../views/SignInPage") },
+  { path: "/statistics", component: () => import("../views/StatisticsPage") },
+  { path: "/export", component: () => import("../shared/ComingSoon") },
+  { path: "/classify", component: () => import("../shared/ComingSoon") },
+  { path: "/notify", component: () => import("../shared/ComingSoon") },
 ];
