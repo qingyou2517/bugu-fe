@@ -28,7 +28,11 @@ export const Bars = defineComponent({
             return (
               <div class={s.topItem}>
                 <div class={s.sign_wrapper}>
-                  <div class={s.sign}>{tag.sign}</div>
+                  <div class={s.sign}>
+                    <svg class={s.svgIcon}>
+                      <use xlinkHref={"#" + tag.sign}></use>
+                    </svg>
+                  </div>
                 </div>
                 <div class={s.bar_wrapper}>
                   <div class={s.bar_text}>
