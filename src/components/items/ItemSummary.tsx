@@ -164,7 +164,11 @@ export const ItemSummary = defineComponent({
               <Cell>
                 <div class={s.item}>
                   <div class={s.sign_wrapper}>
-                    <div class={s.sign}>{item.tags[0].sign}</div>
+                    <div class={s.sign}>
+                      <svg class={s.svgIcon}>
+                        <use xlinkHref={"#" + item.tags[0].sign}></use>
+                      </svg>
+                    </div>
                   </div>
                   <div class={s.text}>
                     <div class={s.tagAndAmount}>

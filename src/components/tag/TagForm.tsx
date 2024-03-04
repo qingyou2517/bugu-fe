@@ -114,9 +114,11 @@ export const TagForm = defineComponent({
           {{
             input: () => (
               <div class={s.sign_wrapper}>
-                <div>
+                <div class={s.select_wrapper}>
                   <span class={s.title}>从以下分类中选择一个符号</span>
-                  <span>{formData.sign}</span>
+                  <svg class={s.svgIcon}>
+                    <use xlinkHref={"#" + formData.sign}></use>
+                  </svg>
                 </div>
                 <EmojiSelect v-model={formData.sign} />
               </div>

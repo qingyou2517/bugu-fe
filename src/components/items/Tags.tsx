@@ -95,7 +95,11 @@ export const Tags = defineComponent({
             onTouchstart={(e) => handleTouchstart(e, tag)}
             onTouchend={() => handleTouchend(tag)}
           >
-            <div class={s.sign}>{tag.sign}</div>
+            <div class={s.sign}>
+              <svg class={s.svgIcon}>
+                <use xlinkHref={"#" + tag.sign}></use>
+              </svg>
+            </div>
             <div class={s.name}>{tag.name}</div>
           </div>
         ))}
