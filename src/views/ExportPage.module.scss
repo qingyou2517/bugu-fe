@@ -1,0 +1,20 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 200px 0;
+}
+
+.pig {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 12px;
+}
+
+.navIcon {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  top: 2px;
+}

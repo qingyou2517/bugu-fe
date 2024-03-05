@@ -63,7 +63,7 @@ export const routes: RouteRecordRaw[] = [
   },
   { path: "/sign_in", component: () => import("../views/SignInPage") },
   { path: "/statistics", component: () => import("../views/StatisticsPage") },
-  { path: "/export", component: () => import("../shared/ComingSoon") },
+  { path: "/export", component: () => import("../views/ExportPage") },
   { path: "/classify", component: () => import("../shared/ComingSoon") },
   { path: "/notify", component: () => import("../shared/ComingSoon") },
 ];
