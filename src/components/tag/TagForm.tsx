@@ -94,46 +94,50 @@ export const TagForm = defineComponent({
     };
 
     return () => (
-      <Form ref={formRef}>
-        <label class={s.label_wrapper}>
-          <span class={s.title}>标签名</span>
-          <Field
-            label=""
-            label-width="48"
-            label-align="left"
-            name="name"
-            clearable
-            class="input_wrapper"
-            placeholder="2~4个字符"
-            v-model={formData.name}
-            rules={nameRules}
-            format-trigger="onBlur"
-          ></Field>
-        </label>
-        <Field label="" label-width="32" label-align="left">
-          {{
-            input: () => (
-              <div class={s.sign_wrapper}>
-                <div class={s.select_wrapper}>
-                  <span class={s.title}>从以下分类中选择一个符号</span>
-                  <svg class={s.svgIcon}>
-                    <use xlinkHref={"#" + formData.sign}></use>
-                  </svg>
-                </div>
-                <EmojiSelect v-model={formData.sign} />
-              </div>
-            ),
-          }}
-        </Field>
-        <span class={s.signError}>
-          {hasError.value ? "必须选择一个符号" : ""}
-        </span>
-        <p class={s.tips}>记账时长按标签即可进行编辑</p>
+      <>
+        <div class={s.wrapper}>
+          <Form ref={formRef}>
+            <label class={s.label_wrapper}>
+              <span class={s.title}>标签名</span>
+              <Field
+                label=""
+                label-width="48"
+                label-align="left"
+                name="name"
+                clearable
+                class="input_wrapper"
+                placeholder="2~4个字符"
+                v-model={formData.name}
+                rules={nameRules}
+                format-trigger="onBlur"
+              ></Field>
+            </label>
+            <Field label="" label-width="32" label-align="left">
+              {{
+                input: () => (
+                  <div class={s.sign_wrapper}>
+                    <div class={s.select_wrapper}>
+                      <span class={s.title}>从以下分类中选择一个符号</span>
+                      <svg class={s.svgIcon}>
+                        <use xlinkHref={"#" + formData.sign}></use>
+                      </svg>
+                    </div>
+                    <EmojiSelect v-model={formData.sign} />
+                  </div>
+                ),
+              }}
+            </Field>
+            <span class={s.signError}>
+              {hasError.value ? "必须选择一个符号" : ""}
+            </span>
+            <p class={s.tips}>记账时长按标签即可进行编辑</p>
 
-        <MyButton onClick={handleSubmit}>
-          {props.updateId ? "保存" : "确定"}
-        </MyButton>
-      </Form>
+            <MyButton onClick={handleSubmit}>
+              {props.updateId ? "保存" : "确定"}
+            </MyButton>
+          </Form>
+        </div>
+      </>
     );
   },
 });

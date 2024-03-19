@@ -87,5 +87,8 @@
       background: var(--button-bg);
       color: var(--button-text);
     }
+    &:active {
+      background: #eee;
+    }
   }
 }
